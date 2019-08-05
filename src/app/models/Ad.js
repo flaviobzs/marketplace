@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate';
 import User from './User';
 
 const AdSchema = new mongoose.Schema({
@@ -26,5 +27,7 @@ const AdSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+AdSchema.plugin(mongoosePaginate);
 
 export default mongoose.model('Ad', AdSchema);

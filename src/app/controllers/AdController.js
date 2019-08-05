@@ -2,7 +2,29 @@ import Ad from '../models/Ad';
 
 class AdController {
   async index(req, res) {
-    const ad = await Ad.find();
+    const filters = {};
+
+    if (req.params.price_min || req.params.price_max) {
+      filters.price = {};
+
+      if (req.params.price_min) {
+        filters.price.$gte = req.params.price_min;
+      }
+
+      if (req.params.price_max) {
+        filters.price.$lte = req.params.price_max;
+      }
+    }
+
+    if (req.params.title) {
+      filters.title = new RegExp(req.querytitle, 'i');
+    }
+
+    const ad = await Ad.paginate(filters, {
+      page: req.params.page || 1,
+      limit: 20,
+      sort: '-createdAt',
+    });
 
     return res.json(ad);
   }
