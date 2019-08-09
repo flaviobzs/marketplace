@@ -1,12 +1,21 @@
 import { Router } from 'express';
+
+// import validate from 'express-validation';
+
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import AdController from './app/controllers/AdController';
-import authMiddleware from './app/middlewares/auth';
 import PurchaseController from './app/controllers/PurchaseController';
+
+import authMiddleware from './app/middlewares/auth';
+
+// import controllers from './..'
+
+// import validation from './app/validators';
 
 const routes = new Router();
 
+// routes.post('/user', validate(validation.User), UserController.store);
 routes.post('/user', UserController.store);
 
 routes.post('/sessions', SessionController.store);
